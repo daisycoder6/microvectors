@@ -17,9 +17,16 @@ def run_vectors(spi):
     """
     Writes all vectors over SPI
     """
+
+    csb = Pin(15, Pin.OUT)
+    csb.on()
+
+    csb.off()
     for vector in vectors:
         print(bytes(vector))
         spi.write(bytes(vector))
+
+    csb.on()
 
     return
 
@@ -47,6 +54,8 @@ def confirm_ok(visual=True):
 
 def run():
     time.sleep(0.8)
+    Pin(15, Pin.OUT).on()
+
 
     spi = configure_spi()
     run_vectors(spi)
