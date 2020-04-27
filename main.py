@@ -21,12 +21,12 @@ def run_vectors(spi):
     csb = Pin(15, Pin.OUT)
     csb.on()
 
-    csb.off()
     for vector in vectors:
+        csb.off()
         print(bytes(vector))
         spi.write(bytes(vector))
 
-    csb.on()
+        csb.on()
 
     return
 
