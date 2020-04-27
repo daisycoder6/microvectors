@@ -1,6 +1,7 @@
 from machine import Pin, SPI
 import config as cfg
 from vectors import vectors
+import time
 
 
 
@@ -17,8 +18,8 @@ def run_vectors(spi):
     Writes all vectors over SPI
     """
     for vector in vectors:
-        print(vector)
-        #spi.write(vector)
+        print(bytes(vector))
+        spi.write(bytes(vector))
 
     return
 
@@ -34,18 +35,20 @@ def confirm_ok(visual=True):
 
     if visual:
 
-        led = machine.Pin(2, machine.Pin.OUT)
-        time.sleep(0.8)
+        led = Pin(16, Pin.OUT)
+        #time.sleep(0.2)
         led.off()
-        time.sleep(0.8)
+        time.sleep(0.1)
         led.on()
-        time.sleep(0.8)
+        time.sleep(0.2)
         led.off()
-        time.sleep(0.8)
+        time.sleep(0.1)
         led.on()
 
 def run():
-    spi =configure_spi()
+    time.sleep(0.8)
+
+    spi = configure_spi()
     run_vectors(spi)
     confirm_ok()
 
